@@ -9,8 +9,13 @@ async def create_file():
     return FileProcessor().create_file()
 
 @router.post("/upload_file/")
-async def uploadFile(file:UploadFile = File()):
-    return await FileProcessor.upload_file()
+async def uploadFile(file:UploadFile = File(...)):
+    return await FileProcessor().upload_file(file)
+
+@router.post("/file/add_data/")
+async def add_data(conta: str, agencia: str, texto:str, valor:float):
+    data = {'conta':conta, "agencia":agencia, "texto":texto, "valor":valor}
+    return await FileProcessor().add_data_to_file(data)
 
 @router.delete("/file/delete_data")
 async def delete_data():
