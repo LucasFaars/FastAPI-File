@@ -1,4 +1,5 @@
 import os
+import json
 import csv
 from fastapi.exceptions import HTTPException
 from fastapi import status, UploadFile
@@ -40,3 +41,14 @@ class FileProcessor:
                 return {"mensagem": f"Dados inseridos com sucesso: {data}"}
         else:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Arquivo inexistente.")
+        
+    async def list_file(self):
+        if os.path.exists(self.directory):
+            with open(self.file_path, 'r') as file:
+                data = []
+                for line in file:
+                    data.append(line)
+                return data
+
+        else:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Não tem arquivos.')
