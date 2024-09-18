@@ -46,9 +46,9 @@ class FileProcessor:
         if os.path.exists(self.directory):
             with open(self.file_path, 'r') as file:
                 data = []
+
                 for line in file:
                     data.append(line)
                 return data
-
         else:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='Não tem arquivos.')
